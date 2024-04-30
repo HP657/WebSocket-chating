@@ -19,19 +19,21 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserEntity signup(SignUpDto signupDto) {
+    public String signup(SignUpDto signupDto) {
         UserEntity user = new UserEntity(
                 signupDto.getUsername(),
                 signupDto.getEmail(),
                 passwordEncoder.encode(signupDto.getPassword())
         );
-        return userRepository.save(user);
+        userRepository.save(user);
+        return "회원가입 성공적";
     }
+
     public String signin(SignInDto signinDto, HttpServletRequest request) {
         UserEntity userByEmail = userRepository.findUserByEmail(signinDto.getEmail());
         System.out.println(userByEmail);
         if (userByEmail == null) {
-            return "존재하지 않는 사용자입니다.";
+            return "존재하지 않는 사용자임";
         } else {
             try {
                 String submittedPassword = signinDto.getPassword();
@@ -39,13 +41,13 @@ public class UserService {
                 System.out.println(userByEmail.getPassword());
                 if (passwordEncoder.matches(submittedPassword, userByEmail.getPassword())) {
                     request.getSession().setAttribute("userId", userByEmail.getUserId());
-                    return "로그인 성공";
+                    return "로그인 성공적";
                 } else {
-                    return "비밀번호가 일치하지 않습니다.";
+                    return "비밀번호가 일치하지 않음";
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                return "로그인 처리 중 오류가 발생했습니다.";
+                return "로그인 중 오류가 발생함";
             }
         }
     }
@@ -53,14 +55,15 @@ public class UserService {
     public UserEntity findUserBySession(HttpServletRequest request) {
         Long userId = (Long) request.getSession().getAttribute("userId");
         if (userId == null) {
-            throw new IllegalStateException("No user logged in");
+            throw new IllegalStateException("로그인 중이 아님");
         }
         return userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("No user found with ID: " + userId));
+                .orElseThrow(() -> new IllegalArgumentException(userId + "번 유저아이디 찾을수 없음"));
     }
 
-    public void logout(HttpServletRequest request) {
+    public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
+        return "로그아웃 성공적";
     }
 
     public Optional<UserEntity> findById(Long id) {

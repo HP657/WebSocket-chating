@@ -22,12 +22,7 @@ public class WebApiController {
     //회원가입
     @PostMapping("/signup")
     public String signUpUser(@RequestBody SignUpDto signupDto) {
-        UserEntity registeredUser = userService.signup(signupDto);
-        if (registeredUser != null) {
-            return "성공적인 회원가입";
-        } else {
-            return "회원가입 실패";
-        }
+        return userService.signup(signupDto);
     }
 
     //로그인
@@ -39,8 +34,7 @@ public class WebApiController {
     //로그아웃
     @GetMapping("/logout")
     public String logOutUser(HttpServletRequest request) {
-        userService.logout(request);
-        return "로그아웃 성공적";
+        return userService.logout(request);
     }
 
     //id로 회원 정보

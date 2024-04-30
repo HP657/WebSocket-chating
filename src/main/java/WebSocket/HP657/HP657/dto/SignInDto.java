@@ -9,11 +9,4 @@ import lombok.Setter;
 public class SignInDto {
     private String email;
     private String password;
-
-    public UserEntity toEntity() {
-        return UserEntity.builder()
-                .email(email)
-                .password(password)
-                .build();
-    }
 }
