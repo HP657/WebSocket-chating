@@ -1,8 +1,10 @@
 package WebSocket.HP657.HP657.api;
 
-import WebSocket.HP657.HP657.dto.UserDto;
+import WebSocket.HP657.HP657.dto.SignUpDto;
+import WebSocket.HP657.HP657.dto.SignInDto;
 import WebSocket.HP657.HP657.entity.UserEntity;
 import WebSocket.HP657.HP657.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,20 +13,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/auth")
 public class WebApiController {
 
     @Autowired
     private UserService userService;
 
-    // POST 요청을 통한 회원가입
+    //회원가입
     @PostMapping("/signup")
-    public ResponseEntity<UserEntity> registerUser(@RequestBody UserDto userDto) {
-        UserEntity registeredUser = userService.registerNewUser(userDto);
-        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
+    public String signUpUser(@RequestBody SignUpDto signupDto) {
+        UserEntity registeredUser = userService.signup(signupDto);
+        if (registeredUser != null) {
+            return "성공적인 회원가입";
+        } else {
+            return "회원가입 실패";
+        }
     }
 
-    // 사용자 조회
+    //로그인
+    @PostMapping("/signin")
+    public String signInUser(@RequestBody SignInDto signinDto, HttpServletRequest request) {
+        return userService.signin(signinDto, request);
+    }
+
+    //로그아웃
+    @GetMapping("/logout")
+    public String logOutUser(HttpServletRequest request) {
+        userService.logout(request);
+        return "로그아웃 성공적";
+    }
+
+    //id로 회원 정보
     @GetMapping("/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
         Optional<UserEntity> user = userService.findById(id);
@@ -33,6 +52,12 @@ public class WebApiController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    //로그인중인 회원정보
+    @GetMapping("/user/info")
+    public UserEntity getUserInfo(HttpServletRequest request) {
+        return userService.findUserBySession(request);
     }
 }
 
