@@ -31,7 +31,7 @@ public class WebApiController {
     }
 
     //로그인중인 회원정보
-    @GetMapping("/user/info")
+    @GetMapping("/info")
     public UserEntity getUserInfo(HttpServletRequest request) {
         return userService.findUserBySession(request);
     }
