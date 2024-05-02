@@ -42,4 +42,3 @@ public class WebApiController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }
-
