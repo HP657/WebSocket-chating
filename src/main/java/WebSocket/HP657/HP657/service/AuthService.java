@@ -1,11 +1,14 @@
 package WebSocket.HP657.HP657.service;
 
+import WebSocket.HP657.HP657.dto.Response;
 import WebSocket.HP657.HP657.dto.SignInDto;
 import WebSocket.HP657.HP657.dto.SignUpDto;
 import WebSocket.HP657.HP657.entity.UserEntity;
 import WebSocket.HP657.HP657.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +21,14 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String signup(SignUpDto signupDto) {
+    public ResponseEntity<Response<String>> signup(SignUpDto signUpDto) {
         UserEntity user = new UserEntity(
-                signupDto.getUsername(),
-                signupDto.getEmail(),
-                passwordEncoder.encode(signupDto.getPassword())
+                signUpDto.getUsername(),
+                signUpDto.getEmail(),
+                passwordEncoder.encode(signUpDto.getPassword())
         );
         userRepository.save(user);
-        return "회원가입 성공적";
+        return new Response<>("회원가입 성공적", HttpStatus.OK).toResponseEntity();
     }
 
     public String signin(SignInDto signinDto, HttpServletRequest request) {

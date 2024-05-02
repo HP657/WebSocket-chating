@@ -1,7 +1,6 @@
 package WebSocket.HP657.HP657.api;
 
 import WebSocket.HP657.HP657.entity.UserEntity;
-import WebSocket.HP657.HP657.service.AuthService;
 import WebSocket.HP657.HP657.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
