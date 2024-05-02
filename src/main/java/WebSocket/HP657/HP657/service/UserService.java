@@ -1,13 +1,17 @@
 package WebSocket.HP657.HP657.service;
 
+import WebSocket.HP657.HP657.dto.Response;
 import WebSocket.HP657.HP657.entity.UserEntity;
 import WebSocket.HP657.HP657.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
@@ -15,21 +19,33 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserEntity findUserBySession(HttpServletRequest request) {
+    public Response<?> findUserBySession(HttpServletRequest request) {
         Long userId = (Long) request.getSession().getAttribute("userId");
         if (userId == null) {
-            throw new IllegalStateException("로그인 중이 아님");
+            return new Response<>("로그인 중이 아님", HttpStatus.UNAUTHORIZED);
         }
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException(userId + "번 유저아이디 찾을수 없음"));
+        Optional<UserEntity> userOpt = userRepository.findById(userId);
+        if (userOpt.isPresent()) {
+            return new Response<>(userOpt.get(), HttpStatus.OK);
+        } else {
+            return new Response<>(userId + "번 유저아이디 찾을수 없음", HttpStatus.NOT_FOUND);
+        }
     }
 
 
-    public Optional<UserEntity> findById(Long id) {
-        return userRepository.findById(id);
+    public Response<Optional<UserEntity>> findById(Long id) {
+        Optional<UserEntity> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return new Response<>(user, HttpStatus.OK);
+        } else {
+            return new Response<>(Optional.empty(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    public List<UserEntity> findAllUsers() {
-        return (List<UserEntity>) userRepository.findAll();
+    public Response<List<UserEntity>> findAllUsers() {
+        Iterable<UserEntity> userIterable = userRepository.findAll();
+        List<UserEntity> users = StreamSupport.stream(userIterable.spliterator(), false)
+                .collect(Collectors.toList());
+        return new Response<>(users, HttpStatus.OK);
     }
 }

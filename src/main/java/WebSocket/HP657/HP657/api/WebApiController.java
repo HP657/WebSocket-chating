@@ -1,5 +1,6 @@
 package WebSocket.HP657.HP657.api;
 
+import WebSocket.HP657.HP657.dto.Response;
 import WebSocket.HP657.HP657.entity.UserEntity;
 import WebSocket.HP657.HP657.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class WebApiController {
     //id로 회원 정보
     @GetMapping("/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
-        Optional<UserEntity> user = userService.findById(id);
+        Optional<UserEntity> user = userService.findById(id).getData();
         if (user.isPresent()) {
             return new ResponseEntity<>(user.get(), HttpStatus.OK);
         } else {
@@ -31,14 +32,13 @@ public class WebApiController {
 
     //로그인중인 회원정보
     @GetMapping("/info")
-    public UserEntity getUserInfo(HttpServletRequest request) {
-        return userService.findUserBySession(request);
+    public ResponseEntity<? extends Response<?>> getUserInfo(HttpServletRequest request) {
+        return userService.findUserBySession(request).toResponseEntity();
     }
 
     // 모든 회원정보
     @GetMapping("/users")
-    public ResponseEntity<List<UserEntity>> getAllUsers() {
-        List<UserEntity> users = userService.findAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity<Response<List<UserEntity>>> getAllUsers() {
+        return userService.findAllUsers().toResponseEntity();
     }
 }
