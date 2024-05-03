@@ -3,6 +3,8 @@ package WebSocket.HP657.HP657.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -23,6 +25,9 @@ public class UserEntity {
 
     @Column(nullable = false)
     private String password;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<ChatRoomEntity> chatrooms;
 
     public UserEntity(String username, String email, String password) {
         this.username = username;
