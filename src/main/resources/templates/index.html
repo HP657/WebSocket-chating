@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Rooms</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div id="chat-room-container">
+    <button onclick="connect(1)">Join Chat Room 1</button>
+    <button onclick="connect(2)">Join Chat Room 2</button>
+    <div id="chat-container" style="display:none;">
+        <ul id="messageArea"></ul>
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
