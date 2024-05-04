@@ -26,14 +26,9 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(mappedBy = "users")
-    private Set<ChatRoomEntity> chatrooms;
-
     public UserEntity(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
     }
-
-
 }
