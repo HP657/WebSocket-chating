@@ -1,0 +1,67 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    color: #444;
+}
+
+#conversation {
+    margin-top: 20px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 10px;
+    visibility: hidden;  /* 초기 상태에서는 보이지 않게 설정 */
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#messages li {
+    padding: 8px 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+#messages li:last-child {
+    border-bottom: none;
+}
+
+input[type="text"], button {
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+input[type="text"] {
+    width: 75%;
+    margin-right: 5px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+button {
+    width: 20%;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #45a045;
+}
