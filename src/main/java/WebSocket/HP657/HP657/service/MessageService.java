@@ -20,6 +20,7 @@ public class MessageService {
                 .content(messageDTO.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();
+
         return messageRepository.save(message);
     }
 }
