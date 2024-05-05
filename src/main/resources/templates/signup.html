@@ -3,49 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Signup</title>
-    <script>
-        function signup() {
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            const data = {
-                username: username,
-                email: email,
-                password: password
-            };
-
-            fetch('/api/auth/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                if (response.ok) {
-                    window.location.href = '/login.html'; // Redirect to login page on success
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-
-            event.preventDefault(); // Prevent form from submitting the traditional way
-        }
-    </script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/signup.js"></script>
 </head>
 <body>
 <h1>회원가입</h1>
-<form onsubmit="signup()">
+<form onsubmit="signup(event)">
     <label for="email">이메일:</label>
-    <input type="email" id="email" name="email" required><br>
+    <input type="email" id="email" required><br>
     <label for="username">유저네임:</label>
-    <input type="text" id="username" name="username" required><br>
+    <input type="text" id="username" required><br>
     <label for="password">비밀번호:</label>
-    <input type="password" id="password" name="password" required><br>
+    <input type="password" id="password" required><br>
     <button type="submit">회원가입</button>
 </form>
 </body>

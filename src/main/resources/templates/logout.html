@@ -3,28 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Logout</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/logout.js"></script>
 </head>
 <body>
 <h1>Logout Page</h1>
 <button id="logoutButton">Logout</button>
-
-<script>
-    document.getElementById('logoutButton').addEventListener('click', function() {
-        fetch('/api/auth/logout', {
-            method: 'GET',
-            credentials: 'include' // 쿠키를 포함해서 요청을 보냄
-        })
-        .then(response => {
-            if (response.ok) {
-                // 로그아웃 성공 시 로그인 페이지로 리디렉션
-                window.location.href = '/login.html';
-            } else {
-                // 로그아웃 실패 시 사용자에게 알림
-                alert('Logout failed.');
-            }
-        })
-        .catch(error => console.error('Error logging out:', error));
-    });
-</script>
 </body>
 </html>
