@@ -23,11 +23,30 @@ h2 {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 #messages li {
     padding: 8px 16px;
     border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    margin-bottom: 2px;
+    border-radius: 5px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+#messages li.my-message {
+    background-color: #dcf8c6; /* 밝은 녹색, 본인 메시지 */
+    margin-left: auto; /* 오른쪽 정렬 */
+    text-align: right;
+}
+
+#messages li.other-message {
+    background-color: #e0e0e0; /* 회색, 다른 사람의 메시지 */
+    margin-right: auto; /* 왼쪽 정렬 */
+    text-align: left;
 }
 
 #messages li:last-child {
