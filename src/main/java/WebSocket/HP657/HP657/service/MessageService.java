@@ -16,7 +16,7 @@ public class MessageService {
 
     public MessageEntity saveMessage(MessageDto messageDTO) {
         MessageEntity message = MessageEntity.builder()
-                .username(messageDTO.getUsername())
+                .userId(messageDTO.getUserId())
                 .content(messageDTO.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();

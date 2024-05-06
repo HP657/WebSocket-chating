@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 public class MessageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long messageId;
 
-    private String username;
+    private Long userId;
     private String content;
     private LocalDateTime timestamp;
 
