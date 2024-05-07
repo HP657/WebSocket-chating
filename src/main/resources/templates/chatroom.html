@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat Room</title>
-    <link rel="stylesheet" type="text/css" href="css/chatroom.css">
+    <link rel="stylesheet" type="text/css" href="../css/chatroom.css">
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stomp-websocket/lib/stomp.min.js"></script>
-    <script src="js/chatroom.js"></script>
+    <script src="../js/chatroom.js"></script>
 </head>
 <body>
-<h2>Chat Room</h2>
+<h2>Chat Room <div id="chat"></div></h2>
 <div>
     <button id="connect" onclick="connect();">Connect</button>
     <button id="disconnect" onclick="disconnect();" disabled="true">Disconnect</button>
