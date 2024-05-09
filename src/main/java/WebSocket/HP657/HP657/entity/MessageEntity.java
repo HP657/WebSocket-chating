@@ -18,6 +18,7 @@ public class MessageEntity {
     private Long messageId;
 
     private Long userId;
+    private Long chatRoomId;
     private String content;
     private LocalDateTime timestamp;
 

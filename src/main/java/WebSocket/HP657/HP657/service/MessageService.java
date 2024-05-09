@@ -10,17 +10,17 @@ import java.time.LocalDateTime;
 
 @Service
 public class MessageService {
-
     @Autowired
     private MessageRepository messageRepository;
+
 
     public MessageEntity saveMessage(MessageDto messageDTO) {
         MessageEntity message = MessageEntity.builder()
                 .userId(messageDTO.getUserId())
                 .content(messageDTO.getMessage())
+                .chatRoomId(messageDTO.getChatRoomId())
                 .timestamp(LocalDateTime.now())
                 .build();
-
         return messageRepository.save(message);
     }
 }
