@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인화면</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<h1>메인화면</h1>
+<button onclick="showForm('login')">로그인</button>
+<button onclick="showForm('signup')">회원가입</button>
+<button onclick="checkUserInfo()">사용자 정보 확인(채팅방 입장)</button>
+
+<div id="loginForm" style="display:none;">
+    <h2>로그인</h2>
+    <form onsubmit="signin(event)">
+        <label for="login-email">이메일:</label>
+        <input type="email" id="login-email" required><br>
+        <label for="login-password">비밀번호:</label>
+        <input type="password" id="login-password" required><br>
+        <button type="submit">로그인</button>
+    </form>
+</div>
+
+<div id="signupForm" style="display:none;">
+    <h2>회원가입</h2>
+    <form onsubmit="signup(event)">
+        <label for="signup-email">이메일:</label>
+        <input type="email" id="signup-email" required><br>
+        <label for="signup-username">유저네임:</label>
+        <input type="text" id="signup-username" required><br>
+        <label for="signup-password">비밀번호:</label>
+        <input type="password" id="signup-password" required><br>
+        <button type="submit">회원가입</button>
+    </form>
+</div>
+
+<div id="chatroomEntry" style="display:none;">
+    <h2>채팅방 입장</h2>
+    <input type="number" id="chatroom-number" placeholder="채팅방 번호" min="1" required>
+    <button onclick="enterChatroom()">입장</button>
+</div>
+
+<script src="js/login.js"></script>
+<script src="js/signup.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
