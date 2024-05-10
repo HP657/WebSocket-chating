@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = '/login';
+                    window.location.href = '/';
                 } else {
-                    alert('Logout failed.');
+                    alert('로그아웃 에러');
                 }
             })
             .catch(error => console.error('Error logging out:', error));

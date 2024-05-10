@@ -1,8 +1,8 @@
 function signup(event) {
     event.preventDefault();
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const username = document.getElementById('signup-username').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
 
     const data = {
         username: username,
@@ -17,14 +17,17 @@ function signup(event) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.text())
-    .then(data => {
-        alert(data);
-        if (response.ok) {
-            window.location.href = '/login';
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('네트워크 에러');
         }
+        return response.json();
+    })
+    .then(data => {
+        alert(data.data);
     })
     .catch((error) => {
         console.error('Error:', error);
+        alert('회원가입 중 에러');
     });
 }

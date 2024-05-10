@@ -1,7 +1,7 @@
 function signin(event) {
     event.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
 
     const data = {
         email: email,
@@ -15,14 +15,17 @@ function signin(event) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.text())
-    .then(data => {
-        alert(data);
-        if (response.ok) {
-            window.location.href = '/chatroom';
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('네트워크 에러');
         }
+        return response.json();
     })
-    .catch((error) => {
+    .then(data => {
+        alert(data.data);
+    })
+    .catch(error => {
         console.error('Error:', error);
+        alert('로그인 중 에러');
     });
 }

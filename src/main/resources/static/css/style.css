@@ -9,7 +9,7 @@ h1 {
     color: #333;
 }
 
-input[type="text"], input[type="email"], input[type="password"], button {
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], button {
     padding: 10px;
     margin-top: 8px;
     display: block;
@@ -26,4 +26,17 @@ button {
 
 button:hover {
     background-color: #45a049;
+}
+
+#loginForm, #signupForm, #chatroomEntry {
+    max-width: 300px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
 }
