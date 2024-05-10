@@ -32,10 +32,25 @@ function connect() {
         stompClient.subscribe(`/topic/public/${roomId}`, function (message) {
             showMessage(JSON.parse(message.body));
         });
+        fetchExistingMessages(roomId);
     }, function(error) {
         alert('Could not connect to WebSocket server. Please refresh the page to try again!');
     });
 }
+
+function fetchExistingMessages(roomId) {
+    fetch(`/${roomId}/messages`)
+        .then(response => response.json())
+        .then(messages => {
+            messages.forEach(message => {
+                showMessage(message);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching messages:', error);
+        });
+}
+
 
 function sendMessage() {
     var messageContent = document.getElementById('message').value.trim();
@@ -53,38 +68,42 @@ function sendMessage() {
 }
 
 function loadUserMap() {
-    fetch('/api/user/users', { credentials: 'include' })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 200) {
-            data.data.forEach(user => {
-                userMap[user.userId] = user.username;
-            });
-        } else {
-            console.error("Failed to load user data:", data);
-        }
-    })
-    .catch(error => {
-        console.error("Error loading user data:", error);
-    });
+    return fetch('/api/user/users', { credentials: 'include' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 200) {
+                data.data.forEach(user => {
+                    userMap[user.userId] = user.username;  // 사용자 ID를 키로, 사용자 이름을 값으로 저장
+                });
+            } else {
+                console.error("Failed to load user data:", data);
+            }
+        })
+        .catch(error => {
+            console.error("Error loading user data:", error);
+        });
 }
+
 
 function showMessage(messageData) {
     var messages = document.getElementById('messages');
     var messageElement = document.createElement('li');
-    if (messageData.userId === userId) {
+    var username = messageData.userId.username || 'Unknown User';
+    var messageContent = `${username}: ${messageData.content}`;
+    messageElement.textContent = messageContent;
+
+    if (messageData.userId.userId === userId) {
         messageElement.classList.add('my-message');
     } else {
         messageElement.classList.add('other-message');
     }
-    var username = userMap[messageData.userId] || 'Unknown User';
-    messageElement.textContent = username + ": " + messageData.content;
+
     messages.appendChild(messageElement);
 }
 
+
 function setConnected(connected) {
     document.getElementById('connect').disabled = connected;
-    document.getElementById('disconnect').disabled = !connected;
     document.getElementById('send').disabled = !connected;
     document.getElementById('conversation').style.visibility = connected ? 'visible' : 'hidden';
     if (!connected) {

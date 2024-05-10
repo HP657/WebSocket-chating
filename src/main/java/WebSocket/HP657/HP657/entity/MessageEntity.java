@@ -17,10 +17,12 @@ public class MessageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
 
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private UserEntity userId;
+
     private Long chatRoomId;
+
     private String content;
     private LocalDateTime timestamp;
-
-
 }
