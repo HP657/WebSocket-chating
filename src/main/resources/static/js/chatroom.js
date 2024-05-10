@@ -39,7 +39,7 @@ function connect() {
 }
 
 function fetchExistingMessages(roomId) {
-    fetch(`/${roomId}/messages`)
+    fetch(`/api/chatroom/${roomId}/messages`)
         .then(response => response.json())
         .then(messages => {
             messages.forEach(message => {
