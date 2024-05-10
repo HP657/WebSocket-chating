@@ -16,17 +16,19 @@ document.addEventListener("DOMContentLoaded", function() {
             userId = data.data.userId;
             connect();
         } else {
-            window.location.href = '/login';
+            window.location.href = '/';
         }
     })
     .catch(error => {
-        window.location.href = '/login';
+        window.location.href = '/';
     });
 });
 
 function connect() {
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
+
+    stompClient.debug = () => {}; // 웹소켓 stomp 로그 출력 막기
     stompClient.connect({}, function (frame) {
         setConnected(true);
         stompClient.subscribe(`/topic/public/${roomId}`, function (message) {
