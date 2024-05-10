@@ -3,8 +3,6 @@ package WebSocket.HP657.HP657.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
-
 @Entity
 @Getter
 @Setter

@@ -2,7 +2,6 @@ package WebSocket.HP657.HP657.dto;
 
 import lombok.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 @Data

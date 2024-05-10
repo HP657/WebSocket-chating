@@ -1,6 +1,5 @@
 package WebSocket.HP657.HP657.dto;
 
-import WebSocket.HP657.HP657.entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 
