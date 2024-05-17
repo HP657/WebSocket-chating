@@ -33,7 +33,7 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public List<MessageEntity> getMessagesByChatRoomId(Long chatRoomId) {  // 타입 수정
-        return messageRepository.findByChatRoomIdOrderByTimestampDesc(chatRoomId);
+    public List<MessageEntity> getMessagesByChatRoomId(Long chatRoomId) {
+        return messageRepository.findByChatRoomIdOrderByTimestampAsc(chatRoomId);
     }
 }
