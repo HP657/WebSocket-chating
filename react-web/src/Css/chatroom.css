@@ -1,0 +1,96 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    color: #444;
+    margin-bottom: 20px;
+}
+
+#conversation {
+    margin-top: 20px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 10px;
+    visibility: hidden;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#messages li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    max-width: 70%;
+    word-wrap: break-word;
+    transition: background-color 0.3s;
+}
+
+#messages li.my-message {
+    background-color: #dcf8c6;
+    margin-left: auto;
+    text-align: right;
+}
+
+#messages li.other-message {
+    background-color: #e0e0e0; 
+    margin-right: auto;
+    text-align: left;
+}
+
+#messages li:last-child {
+    border-bottom: none;
+}
+
+input[type="text"], button {
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+input[type="text"] {
+    width: 75%;
+    margin-right: 5px;
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="text"]:focus {
+    border-color: #5cb85c; 
+    outline: none;
+}
+
+button {
+    width: 20%;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+button:disabled {
+    background-color: #ccc; 
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #45a045; 
+}
